@@ -1,1 +1,1 @@
-# Project--beaver_knithen
+# Учебный проект "Аптека"
