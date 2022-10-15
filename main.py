@@ -1,17 +1,14 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-# create the extension
-db = SQLAlchemy()
-
 # create the app
 app = Flask(__name__)
 
 # configure the SQLite database, relative to the app instance folder
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 
-# initialize the app with the extension
-db.init_app(app)
+# create the extension
+db = SQLAlchemy()
 
 
 @app.route('/')
@@ -28,7 +25,7 @@ def main_page():
         {'title': 'Контакты'},
         {'title': 'Каталог', 'submenu': submenu},
     ]
-    products = {
+    products = [
         {
             'name': 'Аддералл',
             'image_path': 'img/aderall.jpg',
@@ -49,7 +46,7 @@ def main_page():
             'image_path': 'img/xanax.jpg',
             'description': 'Лекарственное средство, анксиолитик, производное бензодиазепина средней продолжительности действия, которое используется для лечения панических расстройств, тревожных неврозов, таких как тревожное расстройство или социофобия.'
         },
-    }
+    ]
     context = {
         'title': title,
         'description': description,
