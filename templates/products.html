@@ -4,11 +4,13 @@
     {% for product in products %}
       <div class="col-lg-3 col-md-4 col-sm-6 mt-3">
         <div class="card">
-          <img src="{{ url_for('static', filename=product.image_path) }}" class="card-img-top" alt="{{ product.name }}">
+          {% if product.thumbnail %}
+            <img src="{{ url_for('static', filename=product.thumbnail) }}" class="card-img-top" alt="{{ product.name }}">
+          {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ product.name}}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <a href="#" class="btn btn-primary">Заказать</a>
+            <p class="card-text">{{ product.description|truncate(100) }}</p>
+            <a href="#" class="btn btn-primary">Подробнее</a>
           </div>
         </div>
       </div>
