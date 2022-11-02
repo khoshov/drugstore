@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask import request
 
 from extensions import db
 from products.models import Product
@@ -21,7 +22,13 @@ def main_page():
         {'title': 'Каталог', 'submenu': submenu},
     ]
 
-    products = db.session.execute(db.select(Product)).scalars()
+    discount = request.args.get('discount')
+
+    if discount:
+        products = db.session.execute(db.select(Product).filter(Product.discount_id != None)).scalars()
+    else:
+        products = db.session.execute(db.select(Product)).scalars()
+
     context = {
         'title': title,
         'description': description,
@@ -29,3 +36,8 @@ def main_page():
         'products': products,
     }
     return render_template('main.html', **context)
+
+
+@blueprint.route('/add')
+def add_product():
+    pass

@@ -1,9 +1,10 @@
 from flask import Flask
+from flask_admin.contrib import sqla
 from sqlalchemy.event import listens_for
 
 from core.admin import ImageView, del_image
 from extensions import admin, db, migrate
-from products.models import Product
+from products.models import Discount, Product
 from products.views import blueprint as product_pb
 
 
@@ -33,6 +34,7 @@ def register_blueprints(app):
 
 def register_admin():
     admin.add_view(ImageView(Product, db.session))
+    admin.add_view(sqla.ModelView(Discount, db.session))
 
 
 def register_signals():
