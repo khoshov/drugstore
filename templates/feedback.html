@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form method="POST" action="/feedback">
+          {{ form.csrf_token }}
+          <p>{{ form.email.label }}</p>
+          <p> {{ form.email }} </p>
+          <p> {{ form.text.label }}</p>
+          <p>{{ form.text }}</p>
+          <input type="submit" value="Оставить обратную связь">
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

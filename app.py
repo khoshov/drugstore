@@ -5,7 +5,9 @@ from sqlalchemy.event import listens_for
 from core.admin import ImageView, del_image
 from extensions import admin, db, migrate
 from products.models import Discount, Product
+from feedback.models import Feedback
 from products.views import blueprint as product_pb
+from feedback.views import blueprint as feedback_pb
 
 
 def create_app(config_object="settings"):
@@ -29,12 +31,14 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(product_pb)
+    app.register_blueprint(feedback_pb)
     return None
 
 
 def register_admin():
     admin.add_view(ImageView(Product, db.session))
     admin.add_view(sqla.ModelView(Discount, db.session))
+    admin.add_view(sqla.ModelView(Feedback, db.session))
 
 
 def register_signals():
